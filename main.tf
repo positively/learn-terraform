@@ -22,9 +22,10 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_instance" "ubuntu" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = var.instance_type
-
+  ami                         = data.aws_ami.ubuntu.id
+  instance_type               = var.instance_type
+  availability_zone           = "${var.region}a" # disabled auto-assign public ip
+  associate_public_ip_address = false
   tags = {
     Name = var.instance_name
   }
